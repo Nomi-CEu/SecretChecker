@@ -29,6 +29,6 @@ if (!result) {
       console.warn(check[idx]);
     }
   });
-} else console.log("All secrets set.")
+} else console.log("All secrets set.");
 
 core.setOutput("success", result);
