@@ -23575,13 +23575,13 @@ if (check.findIndex((val) => val.includes(" ")) !== -1) {
 var keyExists = check.map((key) => key in secrets && secrets[key]);
 var result = keyExists.every((bool) => bool);
 if (!result) {
-  console.warn(`Secrets not set:`);
+  console.warn("Secrets not set:");
   keyExists.forEach((exists, idx) => {
     if (!exists) {
       console.warn(check[idx]);
     }
   });
-}
+} else console.log("All secrets set.");
 core.setOutput("success", result);
 /*! formdata-polyfill. MIT License. Jimmy Wärting <https://jimmy.warting.se/opensource> */
 /*! ws. MIT License. Einar Otto Stangvik <einaros@gmail.com> */

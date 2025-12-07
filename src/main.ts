@@ -23,12 +23,12 @@ const keyExists = check.map((key) => key in secrets && secrets[key]);
 const result = keyExists.every((bool) => bool);
 
 if (!result) {
-  console.warn(`Secrets not set:`);
+  console.warn("Secrets not set:");
   keyExists.forEach((exists, idx) => {
     if (!exists) {
       console.warn(check[idx]);
     }
   });
-}
+} else console.log("All secrets set.")
 
 core.setOutput("success", result);
