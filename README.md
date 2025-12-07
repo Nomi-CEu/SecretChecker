@@ -17,8 +17,15 @@ SECRET_3
 ```
 
 ## Outputs
+Aside from GitHub Action outputs, the secrets in `check` that were not set will be printed to log; and if all secrets to check were set, then a success message is printed to log.
+
 ### Success
 Whether all secrets in `check` are present and set to a non empty-string value. Output is a string; `true` if all secrets are present and set; `false` otherwise.
+
+## Use Cases
+See [StackOverflow Discussion](https://stackoverflow.com/questions/70249519/how-to-check-if-a-secret-variable-is-empty-in-if-conditional-github-actions). This helps streamline that process a little; and by reducing code duplication necessary to check secrets dynamically.
+
+If you want to run jobs conditionally based on secrets set, you can even include this action in a small reusable workflow and call that.
 
 ## Why Separate Action?
 This is to allow reusability between repos and actions.
