@@ -8,7 +8,7 @@ branding:
 
 inputs:
   secrets:
-    description: Secrets as JSON (e.g. `${{ toJSON(secrets) }}`)
+    description: Secrets as JSON.
     required: true
   check:
     description: Secrets that must all exist for this action to return true. Separated by newlines.

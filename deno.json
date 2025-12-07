@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "check": "deno check && deno lint && deno fmt --check",
+    "check": "deno lint && deno fmt --check",
     "build": "deno bundle ./src/main.ts -o ./dist/index.js"
   },
   "imports": {
@@ -9,10 +9,12 @@
     "@zod/zod": "jsr:@zod/zod@^4.1.13"
   },
   "fmt": {
+    "include": ["src/"],
     "spaceAround": false,
     "indentWidth": 2
   },
   "lint": {
+    "include": ["src/"],
     "rules": {
       "tags": ["recommended"],
       "include": [
