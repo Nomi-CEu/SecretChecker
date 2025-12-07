@@ -1,0 +1,22 @@
+name: Secret Checker
+description: GitHub Action to see whether secrets are present and set.
+author: Nomi-CEu
+
+branding:
+  icon: lock
+  color: purple
+
+inputs:
+  secrets:
+    description: Secrets as JSON (e.g. `${{ toJSON(secrets) }}`)
+    required: true
+  check:
+    description: Secrets that must all exist for this action to return true. Separated by newlines.
+    required: true
+outputs:
+  success:
+    description: Whether all secrets exist and are set to a non-empty value. Returns 'true' or 'false'.
+
+runs:
+  using: "node24"
+  main: "dist/index.js"
