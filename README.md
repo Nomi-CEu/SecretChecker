@@ -2,19 +2,44 @@
 
 A very simple GitHub Action to see whether secrets are present and set.
 
+## Example Usage
+```yaml
+name: Secret Check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  secretChecks:
+    name: Secret Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Secret Checks
+        id: secretChecks
+        uses: Nomi-CEu/SecretChecker@v1.0.0
+        with:
+          secrets: ${{ toJSON(secrets) }}
+          check: |
+            SECRET_1
+            SECRET_2
+            SECRET_3
+
+      - name: If Secret Checker Succeeds
+        if: "${{ steps.secretChecks.outputs.success == 'true' }}"
+        run: echo "Secrets are set!"
+
+      - name: If Secret Checker Fails
+        if: "${{ steps.secretChecks.outputs.success == 'false' }}"
+        run: echo "Secrets are not set!"
+```
+
 ## Inputs
 ### Secrets
-Should be secrets in json format. Common way to retrieve this is `${{ toJSON(secrets) }}`.
+Should be secrets in json format.
 
 ### Check
 Secrets to check; separated by newline.
-
-E.g.
-```
-SECRET_1
-SECRET_2
-SECRET_3
-```
 
 ## Outputs
 Aside from GitHub Action outputs, the secrets in `check` that were not set will be printed to log; and if all secrets to check were set, then a success message is printed to log.
