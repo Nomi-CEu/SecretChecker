@@ -23572,7 +23572,16 @@ var check = core.getInput("check", {
 if (check.findIndex((val) => val.includes(" ")) !== -1) {
   throw new Error("Check input should not contain spaces in lines. Secret keys do not contain spaces.");
 }
-var result = check.every((key) => key in secrets && secrets[key]);
-core.setOutput("success", result.toString());
+var keyExists = check.map((key) => key in secrets && secrets[key]);
+var result = keyExists.every((bool) => bool);
+if (!result) {
+  console.warn(`Secrets not set:`);
+  keyExists.forEach((exists, idx) => {
+    if (!exists) {
+      console.warn(check[idx]);
+    }
+  });
+}
+core.setOutput("success", result);
 /*! formdata-polyfill. MIT License. Jimmy Wärting <https://jimmy.warting.se/opensource> */
 /*! ws. MIT License. Einar Otto Stangvik <einaros@gmail.com> */

@@ -19,5 +19,16 @@ if (check.findIndex((val) => val.includes(" ")) !== -1) {
 }
 
 // Compute check & output
-const result = check.every((key) => key in secrets && secrets[key]);
-core.setOutput("success", result.toString());
+const keyExists = check.map((key) => key in secrets && secrets[key]);
+const result = keyExists.every((bool) => bool);
+
+if (!result) {
+  console.warn(`Secrets not set:`);
+  keyExists.forEach((exists, idx) => {
+    if (!exists) {
+      console.warn(check[idx]);
+    }
+  });
+}
+
+core.setOutput("success", result);
