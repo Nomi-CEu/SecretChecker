@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Secret Checks
         id: secretChecks
-        uses: Nomi-CEu/SecretChecker@v1.0.0
+        uses: Nomi-CEu/SecretChecker@v1.1.0
         with:
           secrets: ${{ toJSON(secrets) }}
           check: |
