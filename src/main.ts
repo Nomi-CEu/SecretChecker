@@ -161,12 +161,15 @@ export const handleCheckerOutput = (
       console.log(msg);
     }
   } else {
-    console.warn(
-      `Secrets not set: ${
-        outputs.keyExists.filter(({ exists }) => !exists).map(({ key }) => key)
-          .join(", ")
-      }`,
-    );
+    const notSet = outputs.keyExists.filter(({ exists }) => !exists);
+    if (notSet.length !== 0) {
+      console.warn(
+        `Secrets not set: ${
+          notSet.map(({ key }) => key)
+            .join(", ")
+        }`,
+      );
+    }
 
     const empty = outputs.notEmpty.filter(({ notEmpty }) => !notEmpty);
     if (!inputs.allowEmpty && empty.length !== 0) {

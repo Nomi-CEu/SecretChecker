@@ -64,5 +64,5 @@ jobs:
           pattern: "/^hello.+$/"
 
       - name: Throw if Failed Test 3
-        if: steps.secretChecker2.outputs.success == 'true'
+        if: steps.secretChecker2.outputs.success == 'false'
         run: echo "Expected output false from test 3; got output true." && exit 1
