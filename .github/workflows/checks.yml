@@ -20,5 +20,49 @@ jobs:
         with:
           deno-version: v2.x
 
-      - name: Run Deno Fmt Check
+      - name: Run Deno Lint & Fmt Check
         run: deno lint && deno fmt --check
+
+      - name: Run Deno Unit Tests
+        run: deno test --allow-env
+
+      - name: Secret Checker Basic Test
+        id: secretChecker1
+        uses: ./
+        with:
+          secrets: '{"SECRET_1": "val", "SECRET_2": ""}'
+          check: |
+            SECRET_1
+            SECRET_2
+
+      - name: Throw if Failed Test 1
+        if: steps.secretChecker1.outputs.success == 'true'
+        run: echo "Expected output false from test 1; got output true." && exit 1
+
+      - name: Secret Checker Allow Empty Test
+        id: secretChecker2
+        uses: ./
+        with:
+          secrets: '{"SECRET_1": "val", "SECRET_2": ""}'
+          check: |
+            SECRET_1
+            SECRET_2
+          allowEmpty: true
+
+      - name: Throw if Failed Test 2
+        if: steps.secretChecker2.outputs.success == 'false'
+        run: echo "Expected output true from test 2; got output false." && exit 1
+
+      - name: Secret Checker Pattern Test
+        id: secretChecker3
+        uses: ./
+        with:
+          secrets: '{"SECRET_1": "hello world", "SECRET_2": "hello"}'
+          check: |
+            SECRET_1
+            SECRET_2
+          pattern: "/^hello.+$/"
+
+      - name: Throw if Failed Test 3
+        if: steps.secretChecker2.outputs.success == 'true'
+        run: echo "Expected output false from test 3; got output true." && exit 1

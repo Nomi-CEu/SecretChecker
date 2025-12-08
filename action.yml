@@ -8,11 +8,27 @@ branding:
 
 inputs:
   secrets:
-    description: Secrets as JSON.
+    description: Secrets as JSON. REQUIRED.
     required: true
   check:
-    description: Secrets that must all exist for this action to return true. Separated by newlines.
+    description: Secrets that must all exist for this action to return true. Separated by newlines. REQUIRED.
     required: true
+  allowEmpty:
+    description: Allows secrets to pass the check if they are set to an empty value. Optional; defaults to false.
+    required: false
+    default: false
+  pattern:
+    description: Describes a regular expression which must successful match against secret values for them to be considered valid. Optional.
+    required: false
+    default: '' 
+  throwIfFail:
+    description: Throws an error if NOT ALL secrets are present and set to a non-empty value. Optional; defaults to false.
+    required: false
+    default: false
+  throwIfSuccess:
+    description: Throws an error if ALL secrets are present and set to a non-empty value. Optional; Defaults to false.
+    required: false
+    default: false
 outputs:
   success:
     description: Whether all secrets exist and are set to a non-empty value. Returns 'true' or 'false'.
