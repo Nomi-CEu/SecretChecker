@@ -36,34 +36,61 @@ jobs:
 
 ## Inputs
 `secrets`
-Should be secrets in json format.
+
+Should be secrets in json format. 
+
 **REQUIRED.**
+
+---
 
 `check`
+
 Secrets to check; separated by newline.
+
 **REQUIRED.**
 
+---
+
 `allowEmpty`
+
 Whether to allow secrets set to empty values as valid.
+
 **Optional; default: false.**
+
+---
 
 `pattern`
-Describes a regular expression which must successful match against secret values for them to be considered valid.
-Example: `/hello.+/` would allow secrets set to `helloabc` and `hello world`. but not `hello` or `hi`.
+
+Describes a regular expression which must successful match against secret values for them to be considered valid.    
+*Example:* `/hello.+/` would allow secrets set to `helloabc` and `hello world`. but not `hello` or `hi`.
+
 **Optional.**
 
+---
+
 `throwIfFail`
+
 Whether to throw an error if **NOT ALL** secrets are present and set to a non-empty value.
+
 **Optional; default: false.**
 
+---
+
 `throwIfSuccess`
+
 Whether to throw an error if **ALL** secrets are present and set to a non-empty value.
+
 **Optional; default: false.**
+
+---
 
 ## Outputs
 Aside from GitHub Action outputs, information on what secrets failed which check will be printed to log; or a success message if all secrets were valid.
 
+---
+
 `success`
+
 Whether all secrets in `check` are present and set to a non empty-string value. Output is a string; `true` if all secrets are present and set; `false` otherwise.
 
 ## Use Cases
